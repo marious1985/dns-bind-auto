@@ -22,6 +22,7 @@
         - "- generated a new one with the new entries added in extravars-"
         - "--------------------------------------------------------------"
         - " hostname: '{{ var_hostname.stdout | trim }}'"
+        - ""
 
   - name: add host if hostname is correct
 
