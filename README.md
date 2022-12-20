@@ -1,2 +1,2 @@
 # automations-ansible
-Scripts in Ansible to deploy automations
+Scripts in Ansible to deploy dns-bind additions
