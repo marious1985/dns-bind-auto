@@ -1,0 +1,57 @@
+
+- hosts: dns_servers
+  gather_facts: no
+  tasks:
+  - name: get time
+
+    raw: date -I
+    register: var_time
+  - name: get hostname
+    
+    raw: hostname
+    register: var_hostname
+
+  - name: log entry
+  
+    debug:
+      msg:
+        - "--------------------------------------------------------------"
+        - "--------------- '{{ var_time.stdout_lines.0 }}' --------------"
+        - "-- playbook to add dns entries (A, NS, CNAMES) ---------------"
+        - "-- the process makes a copy of actual zone archive and -------"
+        - "- generated a new one with the new entries added in extravars-"
+        - "--------------------------------------------------------------"
+        - " hostname: '{{ var_hostname.stdout | trim }}'"
+
+  - name: add host if hostname is correct
+
+    debug:
+      msg:
+        - " Correct hostname, entry ready to add "
+    when: var_hostname.stdout_lines.0 == "dns1.lab"
+
+  - name: backup actual zones file
+
+    raw: |
+       cp /etc/bind/zones/db.lab /etc/bind/zones/db.lab.{{ var_time.stdout_lines.0 }}
+       ls /etc/bind/zones/db.lab.{{ var_time.stdout_lines.0 }}
+
+  - name: check backup zone file
+    raw: ls /etc/bind/zones/db.lab.{{ var_time.stdout_lines.0 }}
+    register: var_backup
+
+  - name: set fact file
+    set_fact:
+      var_file: "/etc/bind/zones/db.lab.{{ var_time.stdout_lines.0 }}"
+
+  - name: log entry success
+    debug:
+      msg:
+        - "archive db.lab.'{{ var_time.stdout_lines.0 }}' created"
+    when: var_file  in  var_backup.stdout_lines.0 
+
+  - name: log entry fail
+    debug:
+      msg:
+        - "archive db.lab.'{{ var_time.stdout_lines.0 }}' not created, relaunch script"
+    when: var_file not in var_backup.stdout_lines.0

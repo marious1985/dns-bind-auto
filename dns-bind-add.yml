@@ -1,0 +1,22 @@
+
+- hosts: localhost
+
+  tasks:
+  - name: get time
+
+    shell: /usr/bin/date
+    register: var_time
+
+
+  - name: add dns entries to named zones
+  
+    debug:
+      msg:
+        - "--------------------------------------------------------------"
+        - "--------------- '{{ var_time.stdout }}' ------------------"
+        - "playbook to add dns entries (A, NS, CNAMES)"
+        - "the process makes a copy of actual zone archive and"
+        - "generated a new one with the new entries added in extravars"
+        - "--------------------------------------------------------------"
+        - " "
+
