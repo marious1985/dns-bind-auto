@@ -17,10 +17,10 @@
     debug:
       msg:
         - "--------------------------------------------------------------"
-        - "--------------- '{{ var_time.stdout }}' ----------------------"
+        - "------------ {{ var_time.stdout }} -------------------"
         - "---------playbook to add dns entries (A, NS, CNAMES)----------"
         - "-----the process makes a copy of actual zone archive and------"
         - "--generated a new one with the new entries added in extravars-"
-        - "-----------with serial '{{ var_time_sec.stdout }}'------------"
+        - "---------------with serial {{ var_time_sec.stdout }}----------------"
         - "--------------------------------------------------------------"
 
