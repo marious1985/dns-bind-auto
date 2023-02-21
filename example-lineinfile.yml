@@ -1,0 +1,21 @@
+---
+- name: Example of lineinfile
+  hosts: dns_servers
+
+  tasks:
+    - name: "Example1: Validate if a String or line is present in the file"
+      become: yes
+      become_user: mario
+      tags: example1
+      lineinfile:
+        path: /home/mario/Build/db.test
+        regexp: "Serial"
+        line: "      8  ; Serial"
+        state: present
+        backup: yes
+      #checkmode: yes
+      register: exampleout
+
+    - name: "print exampleout var"
+      debug:
+        msg: "{{ exampleout }}"
