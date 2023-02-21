@@ -1,0 +1,23 @@
+---
+- hosts: all
+  tasks:
+
+    - name: Make sure test file exists
+      file:
+        dest: '/tmp/lineinfile-test'
+        state: 'touch'
+      changed_when: False
+
+    - name: Add a line with Tabs
+      lineinfile:
+        dest: '/tmp/lineinfile-test'
+        regexp: '^First\s'
+        line: 'First\tSecond\tThird'
+        state: 'present'
+
+    - name: Ensure line with Tabs is present
+      lineinfile:
+        dest: '/tmp/lineinfile-test'
+        regexp: '^First\s'
+        line: 'First\tSecond\tThird'
+        state: 'present'
