@@ -4,8 +4,12 @@
   tasks:
   - name: get time
 
-    shell: /usr/bin/date
+    shell: /usr/bin/date +%Y%m%M%S
     register: var_time
+  - name: get time serial format
+
+    shell: /usr/bin/date +%Y%m%M%S
+    register: var_time_sec
 
 
   - name: add dns entries to named zones
@@ -17,5 +21,6 @@
         - "playbook to add dns entries (A, NS, CNAMES)"
         - "the process makes a copy of actual zone archive and"
         - "generated a new one with the new entries added in extravars"
+        - "with serial '{{ var_time_sec.stdout }}'"
         - "--------------------------------------------------------------"
 
