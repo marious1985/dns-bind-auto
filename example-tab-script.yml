@@ -12,12 +12,12 @@
       lineinfile:
         dest: 'example-tab.txt'
         regexp: '^First\s'
-        line: 'First\tSecond\tThird'
+        line: "First\tSecond\tThird"
         state: 'present'
 
     - name: Ensure line with Tabs is present
       lineinfile:
         dest: 'example-tab.txt'
         regexp: '^First\s'
-        line: 'First\tSecond\tThird'
+        line: "First\tSecond\tThird"
         state: 'present'
