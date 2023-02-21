@@ -25,8 +25,8 @@
         state: absent
         backup: yes
       checkmode: yes
-      set_fact:
-        success: true
+    set_fact:
+      success: true
       
     - name: "update serial bind for propagation"
       lineinfile:
