@@ -4,20 +4,20 @@
 
     - name: Make sure test file exists
       file:
-        dest: '/tmp/lineinfile-test'
+        dest: 'example-tab.txt'
         state: 'touch'
       changed_when: False
 
     - name: Add a line with Tabs
       lineinfile:
-        dest: '/tmp/lineinfile-test'
+        dest: 'example-tab.txt'
         regexp: '^First\s'
         line: 'First\tSecond\tThird'
         state: 'present'
 
     - name: Ensure line with Tabs is present
       lineinfile:
-        dest: '/tmp/lineinfile-test'
+        dest: 'example-tab.txt'
         regexp: '^First\s'
         line: 'First\tSecond\tThird'
         state: 'present'
