@@ -11,13 +11,13 @@
     - name: Add a line with Tabs
       lineinfile:
         dest: './example-tab.txt'
-        regexp: '^First\s'
-        line: "First\tSecond\tThird"
+        regexp: '^Serial\s'
+        line: "\t\t\t\t\t\t9\t\t;\tSerial"
         state: 'present'
 
-    - name: Ensure line with Tabs is present
-      lineinfile:
-        dest: './example-tab.txt'
-        regexp: '^First\s'
-        line: "First\tSecond\tThird"
-        state: 'present'
+  #  - name: Ensure line with Tabs is present
+  #    lineinfile:
+  #      dest: './example-tab.txt'
+  #      regexp: '^First\s'
+  #      line: "First\tSecond\tThird"
+  #      state: 'present'
