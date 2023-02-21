@@ -1,6 +1,11 @@
 ---
 - hosts: all
   tasks:
+    - name: get time serial format
+
+      shell: /usr/bin/date +%Y%m%M%S
+      register: var_time_sec
+
 
     - name: Make sure test file exists
       file:
@@ -12,7 +17,7 @@
       lineinfile:
         dest: './example-tab.txt'
         regexp: '.Serial\s'
-        line: "\t\t\t\t\t\t9\t\t;\tSerial"
+        line: "\t\t\t\t\t\t{{ var_time_sec }}\t\t;\tSerial"
         state: 'present'
 
   #  - name: Ensure line with Tabs is present
