@@ -11,7 +11,7 @@
     - name: Add a line with Tabs
       lineinfile:
         dest: './example-tab.txt'
-        regexp: '^Serial\s'
+        regexp: '.Serial\s'
         line: "\t\t\t\t\t\t9\t\t;\tSerial"
         state: 'present'
 
