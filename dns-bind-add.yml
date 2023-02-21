@@ -24,7 +24,7 @@
         - "---------------with serial {{ var_time_sec.stdout }}----------------"
         - "--------------------------------------------------------------"
 
-  - name: "locate fqdn and delete if needed"
+  - name: "try to locate fqdn and add it if not exist"
     become: yes
     become_user: mario
     tags: example1
