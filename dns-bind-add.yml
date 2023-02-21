@@ -4,7 +4,7 @@
   tasks:
   - name: get time
 
-    shell: /usr/bin/date +%Y%m%M%S
+    shell: /usr/bin/date
     register: var_time
   - name: get time serial format
 
