@@ -17,7 +17,7 @@
       lineinfile:
         dest: './example-tab.txt'
         regexp: '.Serial\s'
-        line: "\t\t\t\t\t\t{{ var_time_sec }}\t\t;\tSerial"
+        line: "\t\t\t\t\t\t{{ var_time_sec.stdout }}\t\t;\tSerial"
         state: 'present'
 
   #  - name: Ensure line with Tabs is present
