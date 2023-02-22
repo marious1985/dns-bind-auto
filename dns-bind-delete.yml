@@ -1,6 +1,6 @@
 ---
 - name: Example of lineinfile
-  hosts: dns_servers
+  hosts: all
   vars:
     success: false
 
