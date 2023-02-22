@@ -1,8 +1,12 @@
 ---
 - name: Delete entry from DNS
-  - hosts: all
+  hosts: all
+  vars:
+    success: false
+  vars_files:
+    - ./extra_vars_dns.yml
 
-    tasks:
+  tasks:
     - name: get time
 
       shell: /usr/bin/date
