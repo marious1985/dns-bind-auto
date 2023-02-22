@@ -11,19 +11,6 @@
     shell: /usr/bin/date +%Y%m%M%S
     register: var_time_sec
 
-
-  - name: add dns entries to named zones
-  
-    debug:
-      msg:
-        - "--------------------------------------------------------------"
-        - "------------ {{ var_time.stdout }} -------------------"
-        - "---------playbook to add dns entries (A, NS, CNAMES)----------"
-        - "-----the process makes a copy of actual zone archive and------"
-        - "--generated a new one with the new entries added in extravars-"
-        - "---------------with serial {{ var_time_sec.stdout }}----------------"
-        - "--------------------------------------------------------------"
-
   - name: "try to locate fqdn and add it if not exist"
     become: yes
     become_user: mario
@@ -43,4 +30,20 @@
       regexp: '.Serial\s'
       line: "\t\t{{ var_time_sec.stdout }}\t;\tSerial"
       state: 'present'
+    when: add_fqdn.changed
+
+  - name: result add dns entries to named zones
+  
+    debug:
+      msg:
+        - "--------------------------------------------------------------"
+        - "          {{ var_time.stdout }}         "
+        - "          playbook to add dns entries (A, NS, CNAMES)         "
+        - " the process makes a copy of actual zone archive and          "
+        - " generated a new one with the new entries added in extravars  "
+        - " with serial {{ var_time_sec.stdout }}                        "
+        - ""
+        - "--------------added entry: ps3\t\t\tIN\tA\t192.168.1.3 --------------"
+        - ""
+        - "--------------------------------------------------------------"
     when: add_fqdn.changed

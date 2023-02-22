@@ -34,3 +34,19 @@
         line: "\t\t\t{{ var_time_sec.stdout }}\t;\tSerial"
         state: 'present'
       when: delete_fqdn.changed
+
+    - name: result add dns entries to named zones
+    
+      debug:
+        msg:
+          - "--------------------------------------------------------------"
+          - "          {{ var_time.stdout }}         "
+          - "          playbook to add dns entries (A, NS, CNAMES)         "
+          - " the process makes a copy of actual zone archive and          "
+          - " generated a new one with the new entries added in extravars  "
+          - " with serial {{ var_time_sec.stdout }}                        "
+          - ""
+          - "--------------added entry: ps3\t\t\tIN\tA\t192.168.1.3 --------------"
+          - ""
+          - "--------------------------------------------------------------"
+      when: delete_fqdn.changed
