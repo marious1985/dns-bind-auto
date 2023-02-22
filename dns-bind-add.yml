@@ -1,49 +1,50 @@
+---
+- name: Delete entry from DNS
+  - hosts: all
 
-- hosts: all
+    tasks:
+    - name: get time
 
-  tasks:
-  - name: get time
+      shell: /usr/bin/date
+      register: var_time
+    - name: get time serial format
 
-    shell: /usr/bin/date
-    register: var_time
-  - name: get time serial format
+      shell: /usr/bin/date +%Y%m%M%S
+      register: var_time_sec
 
-    shell: /usr/bin/date +%Y%m%M%S
-    register: var_time_sec
+    - name: "try to locate fqdn and add it if not exist"
+      become: yes
+      become_user: mario
+      tags: example1
+      lineinfile:
+        path: /home/mario/Build/db.test
+        regexp: "ps3"
+        line: "ps3\t\t\tIN\tA\t192.168.1.3"
+        state: present
+        backup: yes
+      #checkmode: yes
+      register: add_fqdn
+      
+    - name: "update serial bind for propagation"
+      lineinfile:
+        dest: '/home/mario/Build/db.test'
+        regexp: '.Serial\s'
+        line: "\t\t{{ var_time_sec.stdout }}\t;\tSerial"
+        state: 'present'
+      when: add_fqdn.changed
 
-  - name: "try to locate fqdn and add it if not exist"
-    become: yes
-    become_user: mario
-    tags: example1
-    lineinfile:
-      path: /home/mario/Build/db.test
-      regexp: "ps3"
-      line: "ps3\t\t\tIN\tA\t192.168.1.3"
-      state: present
-      backup: yes
-    #checkmode: yes
-    register: add_fqdn
+    - name: result add dns entries to named zones
     
-  - name: "update serial bind for propagation"
-    lineinfile:
-      dest: '/home/mario/Build/db.test'
-      regexp: '.Serial\s'
-      line: "\t\t{{ var_time_sec.stdout }}\t;\tSerial"
-      state: 'present'
-    when: add_fqdn.changed
-
-  - name: result add dns entries to named zones
-  
-    debug:
-      msg:
-        - "--------------------------------------------------------------"
-        - "          {{ var_time.stdout }}         "
-        - "          playbook to add dns entries (A, NS, CNAMES)         "
-        - " the process makes a copy of actual zone archive and          "
-        - " generated a new one with the new entries added in extravars  "
-        - " with serial {{ var_time_sec.stdout }}                        "
-        - ""
-        - "--------------added entry: ps3\t\t\tIN\tA\t192.168.1.3 --------------"
-        - ""
-        - "--------------------------------------------------------------"
-    when: add_fqdn.changed
+      debug:
+        msg:
+          - "--------------------------------------------------------------"
+          - "          {{ var_time.stdout }}         "
+          - "          playbook to add dns entries (A, NS, CNAMES)         "
+          - " the process makes a copy of actual zone archive and          "
+          - " generated a new one with the new entries added in extravars  "
+          - " with serial {{ var_time_sec.stdout }}                        "
+          - ""
+          - "--------------added entry: ps3\t\t\tIN\tA\t192.168.1.3 --------------"
+          - ""
+          - "--------------------------------------------------------------"
+      when: add_fqdn.changed
