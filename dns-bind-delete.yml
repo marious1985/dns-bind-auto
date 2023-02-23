@@ -45,7 +45,7 @@
           - " Execution time:   {{ var_time.stdout }}"
           - " Updated Serial parameter to:    {{ var_time_sec.stdout }}"
           - " Deleted entry:    {{ subdomain }}      IN  {{ dns_type }} {{ ip_address }}"
-          - " Backup File generated:    "
+          - " Backup File generated:    {{ delete_fqdn.backup }}"
           - "--------------------------------------------------------------"
         
       when: delete_fqdn.changed

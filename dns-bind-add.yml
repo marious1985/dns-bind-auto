@@ -46,6 +46,6 @@
           - " Execution time:   {{ var_time.stdout }}"
           - " Updated Serial parameter to:    {{ var_time_sec.stdout }}"
           - " Added entry:    {{ subdomain }}      IN  {{ dns_type }} {{ ip_address }}"
-          - " Backup File generated:    "
+          - " Backup File generated:    {{ add_fqdn.backup }}"
           - "--------------------------------------------------------------"
       when: add_fqdn.changed
