@@ -22,18 +22,18 @@
       tags: example1
       lineinfile:
         path: "{{ path_dns_file}}"
-        regexp: "{{ subdomain }}"
+        regexp: "{{ subdomain }}( |\t)"
         line: "{{ subdomain }}\t\t\tIN\t{{ dns_type }}\t{{ ip_address }}"
         state: present
         backup: yes
-        insertafter: "ORIGIN {{ domain }}."
+        insertafter: 'ORIGIN {{ domain }}.'
       #checkmode: yes
       register: add_fqdn
       
     - name: "update serial bind for propagation"
       lineinfile:
-        dest: '/home/mario/Build/db.test'
-        regexp: '.Serial\s'
+        dest: '{{ path_dns_file }}'
+        regexp: '.(S|s)erial\s'
         line: "\t\t{{ var_time_sec.stdout }}\t; Serial"
         state: 'present'
       when: add_fqdn.changed
