@@ -1,5 +1,5 @@
 ---
-- name: Delete entry from DNS
+- name: Add entries from DNS
   hosts: all
   vars:
     success: false
@@ -22,10 +22,11 @@
       tags: example1
       lineinfile:
         path: /home/mario/Build/db.test
-        regexp: "ps3"
-        line: "ps3\t\t\tIN\tA\t192.168.1.3"
+        regexp: "{{ subdomain }}"
+        line: "{{ subdomain }}\t\t\tIN\t{{ dns_type }}\t{{ ip_address }}"
         state: present
         backup: yes
+        insertafter: "ORIGIN lab."
       #checkmode: yes
       register: add_fqdn
       
@@ -33,7 +34,7 @@
       lineinfile:
         dest: '/home/mario/Build/db.test'
         regexp: '.Serial\s'
-        line: "\t\t{{ var_time_sec.stdout }}\t;\tSerial"
+        line: "\t\t{{ var_time_sec.stdout }}\t; Serial"
         state: 'present'
       when: add_fqdn.changed
 
@@ -42,13 +43,9 @@
       debug:
         msg:
           - "--------------------------------------------------------------"
-          - "          {{ var_time.stdout }}         "
-          - "          playbook to add dns entries (A, NS, CNAMES)         "
-          - " the process makes a copy of actual zone archive and          "
-          - " generated a new one with the new entries added in extravars  "
-          - " with serial {{ var_time_sec.stdout }}                        "
-          - ""
-          - "--------------added entry: ps3\t\t\tIN\tA\t192.168.1.3 --------------"
-          - ""
+          - " Execution time:   {{ var_time.stdout }}"
+          - " Updated Serial parameter to:    {{ var_time_sec.stdout }}"
+          - " Added entry:    {{ subdomain }}      IN  {{ dns_type }} {{ ip_address }}"
+          - " Backup File generated:    "
           - "--------------------------------------------------------------"
       when: add_fqdn.changed

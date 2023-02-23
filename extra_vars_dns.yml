@@ -1,0 +1,20 @@
+# --------------- Extra Variables needed for dns playbook ----------------
+
+domain: lab
+# domain that contains de new subdomain ex: | ing.es | ingdirect.es |
+
+subdomain: ps3
+# subdomain to add on previos domain ex: | foo | test | (for foo.ing.es or test.ingdirect.es)
+
+dns_type: A
+# Register type to add, could be: A | TXT | MX | ...
+
+ip_address: 192.168.1.3
+# in case of A type ip to publish on DNS ex: | 193.234.21.3 |
+
+text_reg:
+# in case of TXT type string to add, ex: | spf1: 123.134.345.6,test.rest.com |
+
+mx_reg:
+# in case of MX type string to add, ex: 234.234.234.2,ft.correo.es
+
