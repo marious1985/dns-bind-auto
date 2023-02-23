@@ -26,7 +26,7 @@
         line: "{{ subdomain }}\t\t\tIN\t{{ dns_type }}\t{{ ip_address }}"
         state: present
         backup: yes
-        insertafter: "ORIGIN lab."
+        insertafter: "ORIGIN {{ domain }}."
       #checkmode: yes
       register: add_fqdn
       
