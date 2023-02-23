@@ -31,7 +31,7 @@
       
     - name: "update serial bind for propagation"
       lineinfile:
-        dest: '/home/mario/Build/db.test'
+        dest: "{{ path_dns_file}}"
         regexp: '.Serial\s'
         line: "\t\t\t{{ var_time_sec.stdout }}\t; Serial"
         state: 'present'

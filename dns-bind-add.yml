@@ -21,7 +21,7 @@
       become_user: mario
       tags: example1
       lineinfile:
-        path: /home/mario/Build/db.test
+        path: "{{ path_dns_file}}"
         regexp: "{{ subdomain }}"
         line: "{{ subdomain }}\t\t\tIN\t{{ dns_type }}\t{{ ip_address }}"
         state: present

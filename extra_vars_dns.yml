@@ -1,9 +1,11 @@
 # --------------- Extra Variables needed for dns playbook ----------------
 
-domain: lab
+path_dns_file: /home/mario/Build/ingdierct.es.zone
+
+domain: ingdirect.es
 # domain that contains de new subdomain ex: | ing.es | ingdirect.es |
 
-subdomain: ps3
+subdomain: lab
 # subdomain to add on previos domain ex: | foo | test | (for foo.ing.es or test.ingdirect.es)
 
 dns_type: A
