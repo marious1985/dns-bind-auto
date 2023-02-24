@@ -108,7 +108,7 @@
           - "--------------------------------------------------------------"
           - " Execution time:   {{ var_time.stdout }}"
           - " Updated Serial parameter to:    {{ var_time_sec.stdout }}"
-          - " Added entrys for domain:   {{ subdomain }} "
+          - " Added entrys for:    {{ subdomain }}      IN  {{ register.dns_type }} {{ register.cname_reg }}"
           - " Backup File generated:    {{ add_fqdn_cname.backup }}"
           - "--------------------------------------------------------------"
       when: add_fqdn_cname.changed
