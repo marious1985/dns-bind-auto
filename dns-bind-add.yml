@@ -1,51 +1,114 @@
----
-- name: Add entries from DNS
-  hosts: all
-  vars:
-    success: false
-  vars_files:
-    - ./extra_vars_dns.yml
-
-  tasks:
-    - name: get time
-
-      shell: /usr/bin/date
-      register: var_time
-    - name: get time serial format
-
-      shell: /usr/bin/date +%Y%m%M%S
-      register: var_time_sec
-
-    - name: "try to locate fqdn and add it if not exist"
+    - name: "try to locate fqdn and add it if not exist for Type A record"
       become: yes
       become_user: mario
       tags: example1
       lineinfile:
         path: "{{ path_dns_file}}"
-        regexp: "{{ subdomain }}( |\t)"
-        line: "{{ subdomain }}\t\t\tIN\t{{ dns_type }}\t{{ ip_address }}"
+        #regexp: "{{ subdomain }}( |\t)"
+        line: "{{ subdomain }}\t\t\tIN\t{{ register.dns_type }}\t{{ register.ip_address }}"
         state: present
         backup: yes
         insertafter: 'ORIGIN {{ domain }}.'
       #checkmode: yes
-      register: add_fqdn
-      
-    - name: "update serial bind for propagation"
-      lineinfile:
-        dest: '{{ path_dns_file }}'
-        regexp: '.(S|s)erial\s'
-        line: "\t\t{{ var_time_sec.stdout }}\t; Serial"
-        state: 'present'
-      when: add_fqdn.changed
+      register: add_fqdn_a
+      when: register.dns_type == "A"
 
-    - name: result add dns entries to named zones
+
+    - name: result add dns entries to named zones A type
     
       debug:
         msg:
           - "--------------------------------------------------------------"
           - " Execution time:   {{ var_time.stdout }}"
           - " Updated Serial parameter to:    {{ var_time_sec.stdout }}"
-          - " Added entry:    {{ subdomain }}      IN  {{ dns_type }} {{ ip_address }}"
-          - " Backup File generated:    {{ add_fqdn.backup }}"
+          - " Added entry:    {{ subdomain }}      IN  {{ register.dns_type }} {{ register.ip_address }}"
+          - " Backup File generated:    {{ add_fqdn_a.backup }}"
           - "--------------------------------------------------------------"
-      when: add_fqdn.changed
+      when: add_fqdn_a.changed
+
+
+    - name: "try to locate fqdn and add it if not exist for Type TXT record"
+      become: yes
+      become_user: mario
+      tags: example1
+      lineinfile:
+        path: "{{ path_dns_file}}"
+        #regexp: "{{ subdomain }}( |\t)"
+        line: "{{ subdomain }}\t\t\tIN\t{{ register.dns_type }}\t\"{{ register.txt_reg }}\""
+        state: present
+        backup: yes
+        insertafter: 'ORIGIN {{ domain }}.'
+      #checkmode: yes
+      register: add_fqdn_txt
+      when: register.dns_type == "TXT"
+
+
+    - name: result add dns entries to named zones TXT type
+    
+      debug:
+        msg:
+          - "--------------------------------------------------------------"
+          - " Execution time:   {{ var_time.stdout }}"
+          - " Updated Serial parameter to:    {{ var_time_sec.stdout }}"
+          - " Added entry:    {{ subdomain }}      IN  {{ register.dns_type }} \"{{ register.txt_reg }}\""
+          - " Backup File generated:    {{ add_fqdn_txt.backup }}"
+          - "--------------------------------------------------------------"
+      when: add_fqdn_txt.changed
+
+
+    - name: "try to locate fqdn and add it if not exist for Type MX record"
+      become: yes
+      become_user: mario
+      tags: example1
+      lineinfile:
+        path: "{{ path_dns_file}}"
+        #regexp: "{{ subdomain }}( |\t)"
+        line: "{{ subdomain }}\t\t\tIN\t{{ register.dns_type }}\t{{ register.mx_reg }}"
+        state: present
+        backup: yes
+        insertafter: 'ORIGIN {{ domain }}.'
+      #checkmode: yes
+      register: add_fqdn_mx
+      when: register.dns_type == "MX"
+
+
+    - name: result add dns entries to named zones MX type
+    
+      debug:
+        msg:
+          - "--------------------------------------------------------------"
+          - " Execution time:   {{ var_time.stdout }}"
+          - " Updated Serial parameter to:    {{ var_time_sec.stdout }}"
+          - " Added entry:    {{ subdomain }}      IN  {{ register.dns_type }} {{ register.mx_reg }}"
+          - " Backup File generated:    {{ add_fqdn_mx.backup }}"
+          - "--------------------------------------------------------------"
+      when: add_fqdn_mx.changed
+
+
+    - name: "try to locate fqdn and add it if not exist for Type CNAME record"
+      become: yes
+      become_user: mario
+      tags: example1
+      lineinfile:
+        path: "{{ path_dns_file}}"
+        #regexp: "{{ subdomain }}( |\t)"
+        line: "{{ subdomain }}\t\t\tIN\t{{ register.dns_type }}\t{{ register.cname_reg }}"
+        state: present
+        backup: yes
+        insertafter: 'ORIGIN {{ domain }}.'
+      #checkmode: yes
+      register: add_fqdn_cname
+      when: register.dns_type == "CNAME"
+
+
+    - name: result add dns entries to named zones CNAME type
+    
+      debug:
+        msg:
+          - "--------------------------------------------------------------"
+          - " Execution time:   {{ var_time.stdout }}"
+          - " Updated Serial parameter to:    {{ var_time_sec.stdout }}"
+          - " Added entry:    {{ subdomain }}      IN  {{ register.dns_type }} {{ register.cname_reg }}"
+          - " Backup File generated:    {{ add_fqdn_cname.backup }}"
+          - "--------------------------------------------------------------"
+      when: add_fqdn_cname.changed

@@ -1,0 +1,32 @@
+---
+- name: Add multiple type entries to DNS
+  hosts: all
+  vars:
+    success: false
+  vars_files:
+    - ./extra_vars_dns.yml
+
+  tasks:
+  - name: get time
+
+    shell: /usr/bin/date
+    register: var_time
+  - name: get time serial format
+
+    shell: /usr/bin/date +%Y%m%M%S
+    register: var_time_sec
+  
+  - name: Add Registers types
+    include_tasks: dns-bind-add.yml
+    loop: "{{ registers_type }}"
+    loop_control:
+      loop_var: register
+    register: add_fqdn
+      
+  - name: "update serial bind for propagation"
+    lineinfile:
+      dest: '{{ path_dns_file }}'
+      regexp: '.(S|s)erial\s'
+      line: "\t\t{{ var_time_sec.stdout }}\t; Serial"
+      state: 'present'
+    when: add_fqdn.changed

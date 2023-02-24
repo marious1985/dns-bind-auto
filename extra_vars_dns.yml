@@ -7,16 +7,41 @@ domain: ingdirect.es
 
 subdomain: lab
 # subdomain to add on previos domain ex: | foo | test | (for foo.ing.es or test.ingdirect.es)
+registers_type: # in this subvariable you need to complete as many registers as you need for the subdomain. Ex, if you need
+                # a type A and a tipe B complete the info for each one:
+  - name: registers1
+  # name of register to be reference if needed, first will be and so on: | register1 | register 2 |
+    dns_type: A
+    # Register type to add, could be: A | TXT | MX | CNAME | ...
+    ip_address: 192.168.1.3
+    # in case of A type ip to publish on DNS ex: | 193.234.21.3 |
+    txt_reg:
+    # in case of TXT type string to add, ex: | spf1: 123.134.345.6,test.rest.com |
+    mx_reg:
+    # in case of MX type string to add, ex: 234.234.234.2,ft.correo.es
+    cname_reg:
+    # in case of CNAME type string to add, ex: other.ft.correo.es
+  
+  - name: registers2
+    dns_type: TXT
+    ip_address:
+    txt_reg: "me duele un pie"
+    mx_reg:
+    cname_reg:
 
-dns_type: A
-# Register type to add, could be: A | TXT | MX | ...
+  - name: registers3
+    dns_type: MX
+    ip_address:
+    txt_reg: 
+    mx_reg: "19.19.19.19,correo.alguien.algo"
+    cname_reg:
 
-ip_address: 192.168.1.3
-# in case of A type ip to publish on DNS ex: | 193.234.21.3 |
+  - name: registers4
+    dns_type: CNAME
+    ip_address:
+    txt_reg:
+    mx_reg:
+    cname_reg: "lab2.ingdirect.es"
+  
 
-text_reg:
-# in case of TXT type string to add, ex: | spf1: 123.134.345.6,test.rest.com |
-
-mx_reg:
-# in case of MX type string to add, ex: 234.234.234.2,ft.correo.es
 
