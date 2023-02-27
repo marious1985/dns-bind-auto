@@ -17,6 +17,19 @@
       shell: /usr/bin/date +%Y%m%M%S
       register: var_time_sec
 
+    - name: backup current dns zone file
+      copy:
+        src: "{{ path_dns_file }}"
+        dest: "{{ path_dns_file }}.{{ var_time_sec.stdout }}"
+      register: backup_file
+
+    - name: debug backup
+      debug:
+        msg: 
+        - "-----------------backup file--------------"
+        - " {{ backup_file.dest }} "
+        - "------------------------------------------"
+
     - name: "locate fqdn and delete if needed"
       become: yes
       become_user: mario
@@ -25,7 +38,6 @@
         path: '{{ path_dns_file }}'
         regexp: "{{ subdomain }}( |\t)"
         state: absent
-        backup: yes
       #checkmode: yes
       register: delete_fqdn
       
@@ -35,6 +47,7 @@
         regexp: '.(S|s)erial\s'
         line: "\t\t\t{{ var_time_sec.stdout }}\t; Serial"
         state: 'present'
+        #backup: yes
       when: delete_fqdn.changed
 
     - name: result add dns entries to named zones
@@ -45,7 +58,8 @@
           - " Execution time:   {{ var_time.stdout }}"
           - " Updated Serial parameter to:    {{ var_time_sec.stdout }}"
           - " Deleted entry:    {{ subdomain }} "
-          - " Backup File generated:    {{ delete_fqdn.backup }}"
+          #- " Backup File generated:    {{ delete_fqdn.backup }}"
+          #- " Backup File generated:   {{ backup_file }}"
           - "--------------------------------------------------------------"
         
       when: delete_fqdn.changed
