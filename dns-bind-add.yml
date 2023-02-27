@@ -4,12 +4,9 @@
       tags: example1
       lineinfile:
         path: "{{ path_dns_file}}"
-        #regexp: "{{ subdomain }}( |\t)"
         line: "{{ subdomain }}\t\t\tIN\t{{ register.dns_type }}\t{{ register.ip_address }}"
         state: present
-        #backup: yes
         insertafter: 'ORIGIN {{ domain }}.'
-      #checkmode: yes
       register: add_fqdn_a
       when: register.dns_type == "A"
 
@@ -22,8 +19,6 @@
           - " Execution time:   {{ var_time.stdout }}"
           - " Updated Serial parameter to:    {{ var_time_sec.stdout }}"
           - " Added entry:    {{ subdomain }}      IN  {{ register.dns_type }} {{ register.ip_address }}"
-          #- " Backup File generated:    {{ add_fqdn_a.backup }}"
-          #- " Backup File generated:    {{ backup_file }}"
           - "--------------------------------------------------------------"
       when: add_fqdn_a.changed
 
@@ -34,12 +29,9 @@
       tags: example1
       lineinfile:
         path: "{{ path_dns_file}}"
-        #regexp: "{{ subdomain }}( |\t)"
         line: "{{ subdomain }}\t\t\tIN\t{{ register.dns_type }}\t\"{{ register.txt_reg }}\""
         state: present
-        #backup: yes
         insertafter: 'ORIGIN {{ domain }}.'
-      #checkmode: yes
       register: add_fqdn_txt
       when: register.dns_type == "TXT"
 
@@ -52,7 +44,6 @@
           - " Execution time:   {{ var_time.stdout }}"
           - " Updated Serial parameter to:    {{ var_time_sec.stdout }}"
           - " Added entry:    {{ subdomain }}      IN  {{ register.dns_type }} \"{{ register.txt_reg }}\""
-          #- " Backup File generated:    {{ add_fqdn_txt.backup }}"
           - "--------------------------------------------------------------"
       when: add_fqdn_txt.changed
 
@@ -63,12 +54,9 @@
       tags: example1
       lineinfile:
         path: "{{ path_dns_file}}"
-        #regexp: "{{ subdomain }}( |\t)"
         line: "{{ subdomain }}\t\t\tIN\t{{ register.dns_type }}\t{{ register.mx_reg }}"
         state: present
-        #backup: yes
         insertafter: 'ORIGIN {{ domain }}.'
-      #checkmode: yes
       register: add_fqdn_mx
       when: register.dns_type == "MX"
 
@@ -81,7 +69,6 @@
           - " Execution time:   {{ var_time.stdout }}"
           - " Updated Serial parameter to:    {{ var_time_sec.stdout }}"
           - " Added entry:    {{ subdomain }}      IN  {{ register.dns_type }} {{ register.mx_reg }}"
-          #- " Backup File generated:    {{ add_fqdn_mx.backup }}"
           - "--------------------------------------------------------------"
       when: add_fqdn_mx.changed
 
@@ -92,12 +79,9 @@
       tags: example1
       lineinfile:
         path: "{{ path_dns_file}}"
-        #regexp: "{{ subdomain }}( |\t)"
         line: "{{ subdomain }}\t\t\tIN\t{{ register.dns_type }}\t{{ register.cname_reg }}"
         state: present
-        #backup: yes
         insertafter: 'ORIGIN {{ domain }}.'
-      #checkmode: yes
       register: add_fqdn_cname
       when: register.dns_type == "CNAME"
 
@@ -110,6 +94,5 @@
           - " Execution time:   {{ var_time.stdout }}"
           - " Updated Serial parameter to:    {{ var_time_sec.stdout }}"
           - " Added entrys for:    {{ subdomain }}      IN  {{ register.dns_type }} {{ register.cname_reg }}"
-          #- " Backup File generated:    {{ add_fqdn_cname.backup }}"
           - "--------------------------------------------------------------"
       when: add_fqdn_cname.changed

@@ -38,7 +38,6 @@
         path: '{{ path_dns_file }}'
         regexp: "{{ subdomain }}( |\t)"
         state: absent
-      #checkmode: yes
       register: delete_fqdn
       
     - name: "update serial bind for propagation"
@@ -47,7 +46,6 @@
         regexp: '.(S|s)erial\s'
         line: "\t\t\t{{ var_time_sec.stdout }}\t; Serial"
         state: 'present'
-        #backup: yes
       when: delete_fqdn.changed
 
     - name: result add dns entries to named zones
@@ -58,8 +56,6 @@
           - " Execution time:   {{ var_time.stdout }}"
           - " Updated Serial parameter to:    {{ var_time_sec.stdout }}"
           - " Deleted entry:    {{ subdomain }} "
-          #- " Backup File generated:    {{ delete_fqdn.backup }}"
-          #- " Backup File generated:   {{ backup_file }}"
           - "--------------------------------------------------------------"
         
       when: delete_fqdn.changed
