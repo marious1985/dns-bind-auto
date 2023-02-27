@@ -1,0 +1,38 @@
+# --------------- Extra Variables needed for dns playbook ----------------
+
+path_dns_file: /home/mario/Build/ingdirect.es.zone
+
+domain: ingdirect.es
+# domain that contains de new subdomain ex: | ing.es | ingdirect.es |
+
+subdomain: lab
+# subdomain to add on previos domain ex: | foo | test | (for foo.ing.es or test.ingdirect.es)
+registers_type: # in this subvariable you need to complete as many registers as you need for the subdomain. Ex, if you need
+                # a type A and a tipe B complete the info for each one:
+  - name: registers1
+  # name of register to be reference if needed, first will be and so on: | register1 | register 2 |
+    dns_type: A
+    # Register type to add, could be: A | TXT | MX | CNAME | ...
+    ip_address_orig: 192.168.1.3
+    # in case of A type modification, original ip on DNS ex: | 193.234.21.3 |
+    ip_address: 192.168.1.4
+    # in case of A type ip to publish on DNS ex: | 193.234.21.3 |
+    txt_reg:
+    # in case of TXT type string to add, ex: | spf1: 123.134.345.6,test.rest.com |
+    mx_reg:
+    # in case of MX type string to add, ex: 234.234.234.2,ft.correo.es
+    cname_reg:
+    # in case of CNAME type string to add, ex: other.ft.correo.es
+  
+
+  - name: registers3
+    dns_type: MX
+    ip_address:
+    txt_reg: 
+    mx_reg: "mail.nuevo.mod.com,mail.mod.es"
+    cname_reg:
+
+ 
+  
+
+
