@@ -38,13 +38,8 @@ registers_type: # in this subvariable you need to complete as many registers as 
 
   - name: registers3
     dns_type: MX
-    ip_address_orig:
-    ip_address:
-    txt_reg_orig:
-    txt_reg: 
     mx_reg_orig: "19.19.19.19,correo.alguien.algo"
     mx_reg: "mail.nuevo.mod.com,mail.mod.es"
-    cname_reg:
 
  
   
