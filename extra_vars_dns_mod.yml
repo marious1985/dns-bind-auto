@@ -17,18 +17,32 @@ registers_type: # in this subvariable you need to complete as many registers as 
     # in case of A type modification, original ip on DNS ex: | 193.234.21.3 |
     ip_address: 192.168.1.4
     # in case of A type ip to publish on DNS ex: | 193.234.21.3 |
+    txt_reg_orig:
+    # in case of TXT type modification original string, ex: | spf1: 123.134.345.6,test.rest.com |
     txt_reg:
     # in case of TXT type string to add, ex: | spf1: 123.134.345.6,test.rest.com |
+    mx_reg_orig:
+    # in case of MX type modification original string, ex: 234.234.234.2,ft.correo.es
     mx_reg:
     # in case of MX type string to add, ex: 234.234.234.2,ft.correo.es
+    cname_reg_orig:
+    # in case of CNAME type modification original string, ex: other.ft.correo.es
     cname_reg:
     # in case of CNAME type string to add, ex: other.ft.correo.es
   
 
+  - name: registers2
+    dns_type: TXT
+    txt_reg_orig: "me duele un pie"
+    txt_reg: "me duelen los pies"
+
   - name: registers3
     dns_type: MX
+    ip_address_orig:
     ip_address:
+    txt_reg_orig:
     txt_reg: 
+    mx_reg_orig: "19.19.19.19,correo.alguien.algo"
     mx_reg: "mail.nuevo.mod.com,mail.mod.es"
     cname_reg:
 
