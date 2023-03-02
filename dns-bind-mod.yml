@@ -4,96 +4,19 @@
       tags: example1
       lineinfile:
         path: "{{ path_dns_file}}"
-        regexp: "{{ subdomain }}.+{{ register.dns_type }}.+{{ register.ip_address_orig }}"
-        line: "{{ subdomain }}\t\t\tIN\t{{ register.dns_type }}\t{{ register.ip_address }}"
+        regexp: "{{ subdomain }}.+{{ register.dns_type }}.+{{ register.reg_value_orig }}"
+        line: "{{ subdomain }}\t\t\tIN\t{{ register.dns_type }}\t{{ register.reg_value }}"
         state: present
-      register: add_fqdn_a
-      when: register.dns_type == "A" and register.ip_address != ""
+      register: add_reg
+      #when: register.dns_type == "A" and register.reg_value != ""
 
-
-    - name: result add dns entries to named zones A type
+    - name: result mod dns entries to named zones
     
       debug:
         msg:
           - "--------------------------------------------------------------"
           - " Execution time:   {{ var_time.stdout }}"
           - " Updated Serial parameter to:    {{ var_time_sec.stdout }}"
-          - " Added entry:    {{ subdomain }}      IN  {{ register.dns_type }} {{ register.ip_address }}"
+          - " Added entry:    {{ subdomain }}      IN  {{ register.dns_type }} {{ register.reg_value }}"
           - "--------------------------------------------------------------"
-      when: add_fqdn_a.changed
-
-
-    - name: "try to locate fqdn, modify or add it if not exist for Type TXT record"
-      become: yes
-      become_user: mario
-      tags: example1
-      lineinfile:
-        path: "{{ path_dns_file}}"
-        regexp: "{{ subdomain }}.+{{ register.dns_type }}.+"
-        line: "{{ subdomain }}\t\t\tIN\t{{ register.dns_type }}\t\"{{ register.txt_reg }}\""
-        state: present
-      register: add_fqdn_txt
-      when: register.dns_type == "TXT" and register.txt_reg != ""
-
-
-    - name: result add dns entries to named zones TXT type
-    
-      debug:
-        msg:
-          - "--------------------------------------------------------------"
-          - " Execution time:   {{ var_time.stdout }}"
-          - " Updated Serial parameter to:    {{ var_time_sec.stdout }}"
-          - " Added entry:    {{ subdomain }}      IN  {{ register.dns_type }} \"{{ register.txt_reg }}\""
-          - "--------------------------------------------------------------"
-      when: add_fqdn_txt.changed
-
-
-    - name: "try to locate fqdn, modify or add it if not exist for Type MX record"
-      become: yes
-      become_user: mario
-      tags: example1
-      lineinfile:
-        path: "{{ path_dns_file}}"
-        regexp: "{{ subdomain }}.+{{ register.dns_type }}.+"
-        line: "{{ subdomain }}\t\t\tIN\t{{ register.dns_type }}\t{{ register.mx_reg }}"
-        state: present
-      register: add_fqdn_mx
-      when: register.dns_type == "MX" and register.mx_reg != ""
-
-
-    - name: result add dns entries to named zones MX type
-    
-      debug:
-        msg:
-          - "--------------------------------------------------------------"
-          - " Execution time:   {{ var_time.stdout }}"
-          - " Updated Serial parameter to:    {{ var_time_sec.stdout }}"
-          - " Added entry:    {{ subdomain }}      IN  {{ register.dns_type }} {{ register.mx_reg }}"
-          - "--------------------------------------------------------------"
-      when: add_fqdn_mx.changed
-
-
-    - name: "try to locate fqdn, modify or add it if not exist for Type CNAME record"
-      become: yes
-      become_user: mario
-      tags: example1
-      lineinfile:
-        path: "{{ path_dns_file}}"
-        regexp: "{{ subdomain }}.+{{ register.dns_type }}.+"
-        line: "{{ subdomain }}\t\t\tIN\t{{ register.dns_type }}\t{{ register.cname_reg }}"
-        state: present
-        insertafter: 'ORIGIN {{ domain }}.'
-      register: add_fqdn_cname
-      when: register.dns_type == "CNAME" and register.cname_reg != ""
-
-
-    - name: result add dns entries to named zones CNAME type
-    
-      debug:
-        msg:
-          - "--------------------------------------------------------------"
-          - " Execution time:   {{ var_time.stdout }}"
-          - " Updated Serial parameter to:    {{ var_time_sec.stdout }}"
-          - " Added entrys for:    {{ subdomain }}      IN  {{ register.dns_type }} {{ register.cname_reg }}"
-          - "--------------------------------------------------------------"
-      when: add_fqdn_cname.changed
+      when: add_reg.changed
