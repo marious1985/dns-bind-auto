@@ -1,4 +1,4 @@
-    - name: "try to locate fqdn, modify or add it if not exist for Type A record"
+    - name: "try to locate register and modify it if exist"
       become: yes
       become_user: mario
       tags: example1
