@@ -1,7 +1,0 @@
-[dns_servers]
-192.168.122.2
-
-[dns_servers:vars]
-ansible_user=root
-ansible_ssh_pass=mario@luisa2006
-ansible_ssh_common_args='-o StrictHostKeyChecking=no'
