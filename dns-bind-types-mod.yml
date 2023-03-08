@@ -1,6 +1,6 @@
 ---
 - name: Modify multiple type entries to DNS
-  hosts: Nodes
+  hosts: all
   vars:
     success: false
   vars_files:
