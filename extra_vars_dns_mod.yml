@@ -1,6 +1,6 @@
 # --------------- Extra Variables needed for dns playbook ----------------
 
-path_dns_file: /home/mario/Build/ingdirect.es.zone
+path_dns_file: /var/named/chroot/var/named/data/ingdirect.es.host
 
 domain: ingdirect.es
 # domain that contains de new subdomain ex: | ing.es | ingdirect.es |
