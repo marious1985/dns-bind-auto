@@ -17,7 +17,9 @@
     register: var_time_sec
   
   - name: backup current dns zone file
-    become: yes
+    become: true
+    become_user: root
+    become_method: su
     copy:
       src: "{{ path_dns_file }}"
       dest: "{{ path_dns_file }}.{{ var_time_sec.stdout }}"
@@ -38,7 +40,9 @@
     register: add_fqdn
       
   - name: "update serial bind for propagation"
-    become: yes
+    become: true
+    become_user: root
+    become_method: su
     lineinfile:
       dest: '{{ path_dns_file }}'
       regexp: '.(S|s)erial\s'

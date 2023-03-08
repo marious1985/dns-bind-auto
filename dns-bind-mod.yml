@@ -1,5 +1,7 @@
     - name: "try to locate register and modify it if exist"
-      become: yes
+      become: true
+      become_user: root
+      become_method: su
       tags: example1
       lineinfile:
         path: "{{ path_dns_file}}"

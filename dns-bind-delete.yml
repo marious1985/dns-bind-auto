@@ -18,6 +18,9 @@
       register: var_time_sec
 
     - name: backup current dns zone file
+      become: true
+      become_user: root
+      become_method: su
       copy:
         src: "{{ path_dns_file }}"
         dest: "{{ path_dns_file }}.{{ var_time_sec.stdout }}"
@@ -31,7 +34,9 @@
         - "------------------------------------------"
 
     - name: "locate fqdn and delete if needed"
-      become: yes
+      become: true
+      become_user: root
+      become_method: su
       tags: example1
       lineinfile:
         path: '{{ path_dns_file }}'
@@ -40,7 +45,9 @@
       register: delete_fqdn
       
     - name: "update serial bind for propagation"
-      become: yes
+      become: true
+      become_user: root
+      become_method: su
       lineinfile:
         dest: "{{ path_dns_file}}"
         regexp: '.(S|s)erial\s'
