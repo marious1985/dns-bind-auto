@@ -1,6 +1,6 @@
 ---
 - name: Delete entry from DNS
-  hosts: nodes
+  hosts: Nodes
   vars:
     success: false
   vars_files:
