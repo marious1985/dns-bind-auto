@@ -18,9 +18,8 @@
   
   - name: backup current dns zone file
     become: true
-    become_user: root
-    become_method: su
     copy:
+      remote_src: yes
       src: "{{ path_dns_file }}"
       dest: "{{ path_dns_file }}.{{ var_time_sec.stdout }}"
     register: backup_file
