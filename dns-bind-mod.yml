@@ -1,6 +1,5 @@
     - name: "try to locate register and modify it if exist"
       become: yes
-      become_user: mario
       tags: example1
       lineinfile:
         path: "{{ path_dns_file}}"

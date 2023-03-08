@@ -32,7 +32,6 @@
 
     - name: "locate fqdn and delete if needed"
       become: yes
-      become_user: mario
       tags: example1
       lineinfile:
         path: '{{ path_dns_file }}'
@@ -41,6 +40,7 @@
       register: delete_fqdn
       
     - name: "update serial bind for propagation"
+      become: yes
       lineinfile:
         dest: "{{ path_dns_file}}"
         regexp: '.(S|s)erial\s'

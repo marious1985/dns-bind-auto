@@ -1,6 +1,5 @@
     - name: "try to locate record and add it if not exist"
       become: yes
-      become_user: mario
       tags: example1
       lineinfile:
         path: "{{ path_dns_file}}"
