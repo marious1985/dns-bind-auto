@@ -2,6 +2,7 @@
       become: true
       tags: example1
       lineinfile:
+        backrefs: yes
         path: "{{ path_dns_file}}"
         regexp: "{{ subdomain }}.+{{ register.dns_type }}.+{{ register.reg_value_orig }}"
         line: "{{ subdomain }}    {{ register.ttl }}        IN    {{ register.dns_type }}    {{ register.reg_value }}"

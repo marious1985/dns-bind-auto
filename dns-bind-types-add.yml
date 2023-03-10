@@ -41,6 +41,7 @@
   - name: "update serial bind for propagation"
     become: true
     lineinfile:
+      backrefs: yes
       dest: '{{ path_dns_file }}'
       regexp: '.(S|s)erial\s'
       line: "                                {{ var_time_sec.stdout }} ; serial"
