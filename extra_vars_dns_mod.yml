@@ -86,6 +86,7 @@ registers_type:
 
   - name: register4
     dns_type: NS
+    reg_value_orig: ns.server.com
     reg_value: ns.server-new.com
     ttl: 3000
  
