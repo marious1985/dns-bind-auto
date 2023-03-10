@@ -4,7 +4,7 @@
       lineinfile:
         path: "{{ path_dns_file}}"
         regexp: "{{ subdomain }}.+{{ register.dns_type }}.+{{ register.reg_value_orig }}"
-        line: "{{ subdomain }}\t\t\tIN\t{{ register.dns_type }}\t{{ register.reg_value }}"
+        line: "{{ subdomain }}    {{ ttl }}        IN    {{ register.dns_type }}    {{ register.reg_value }}"
         state: present
       register: add_reg
       #when: register.dns_type == "A" and register.reg_value != ""

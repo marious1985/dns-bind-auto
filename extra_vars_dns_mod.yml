@@ -1,68 +1,68 @@
 # --------------- Extra Variables needed for dns playbook ----------------
 
-path_dns_file: /var/named/chroot/var/named/data/ingdirect.es.host
-
 domain: ingdirect.es
 # domain that contains de new subdomain ex: | ing.es | ingdirect.es |
 
 subdomain: lab
 # subdomain to add on previos domain ex: | foo | test | (for foo.ing.es or test.ingdirect.es)
 
+path_dns_file: /var/named/chroot/var/named/data/{{ domain }}.host
+# file of dns server to modify DO NOT CHANGE!!!!!!!
 
 # Comments about DNS register types.
 #------------------------------------------------------------------------------------------------------------------------------------------------------------
 #registers_type: # in this subvariable you need to complete as many registers as you need for the subdomain. Ex, if you need
                 # a type A and a tipe TXT complete the info for each one:
 #  - name: registers1
-  # name of register to be reference if needed, first will be and so on: | register1 | register 2 |
-#    dns_type: A
+    # name of register to be reference if needed, first will be and so on: | register1 | register 2 |
+#  dns_type: A
     # Register type to add, could be: A | TXT | MX | CNAME | ...
-#    ip_address_orig: 192.168.1.3
+#  reg_value_orig: 192.168.1.3
     # in case of A type modification, original ip on DNS ex: | 193.234.21.3 |
-#    ip_address: 192.168.1.4
+#  reg_value: 192.168.1.4
     # in case of A type ip to publish on DNS ex: | 193.234.21.3 |
-#    txt_reg_orig:
     # in case of TXT type modification original string, ex: | spf1: 123.134.345.6,test.rest.com |
-#    txt_reg:
     # in case of TXT type string to add, ex: | spf1: 123.134.345.6,test.rest.com |
-#    mx_reg_orig:
     # in case of MX type modification original string, ex: 234.234.234.2,ft.correo.es
-#    mx_reg:
     # in case of MX type string to add, ex: 234.234.234.2,ft.correo.es
-#    cname_reg_orig:
     # in case of CNAME type modification original string, ex: other.ft.correo.es
-#    cname_reg:
     # in case of CNAME type string to add, ex: other.ft.correo.es
-
+#  ttl:
+    # in case of NS type number to add [1-3600], ex: | 300 | 20 | ....
 
 
 # example of config for A type:
 #
 #registers_type:
 #  - name: registers1
-#    ip_address_orig: 192.168.1.3
-#    ip_address: 192.168.1.4
+#    reg_value_orig: 192.168.1.3
+#    reg_value: 192.168.1.4
 
 #example of config for TXT type:
 #
 #registers_type:
 #  - name: registers2
 #    dns_type: TXT
-#    txt_reg_orig: "me duele un pie"
-#    txt_reg: "me duelen los pies"
+#    reg_value_orig: "me duele un pie"
+#    reg_value: "me duelen los pies"
 
-#example of config for two registers, A and TXT type:
+#example of config for 3 registers: A, TXT, NS type:
 #
 #registers_type:
 #  - name: registers1
-#    ip_address_orig: 192.168.1.3
-#    ip_address: 192.168.1.4
+#    reg_value_orig: 192.168.1.3
+#    reg_value: 192.168.1.4
 #
-#    
 #  - name: registers2
 #    dns_type: TXT
-#    txt_reg_orig: "me duele un pie"
-#    txt_reg: "me duelen los pies"
+#    reg_value_orig: "me duele un pie"
+#    reg_value: "me duelen los pies"
+#
+#    
+# - name: register4
+#    dns_type: NS
+#    reg_value: ns.server-new.com
+#    ttl: 3000
 #
 #------------------------------------------------------------------------------------------------------------------------------------------------------------
 registers_type: 
@@ -81,6 +81,11 @@ registers_type:
     reg_value_orig: "19.19.19.19,correo.alguien.algo"
     reg_value: "mail.nuevo.mod.com,mail.mod.es"
 
+
+  - name: register4
+    dns_type: NS
+    reg_value: ns.server-new.com
+    ttl: 3000
  
   
 

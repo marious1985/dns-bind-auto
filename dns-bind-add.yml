@@ -3,7 +3,7 @@
       tags: example1
       lineinfile:
         path: "{{ path_dns_file}}"
-        line: "{{ subdomain }}\t\t\tIN\t{{ register.dns_type }}\t{{ register.reg_value }}"
+        line: "{{ subdomain }}    {{ ttl }}        IN    {{ register.dns_type }}    {{ register.reg_value }}"
         state: present
         insertafter: 'ORIGIN {{ domain }}.'
       register: add_reg
