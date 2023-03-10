@@ -66,19 +66,24 @@ registers_type:
   - name: registers1
     dns_type: A
     reg_value: 192.168.1.3
+    ttl: ""
     
   - name: registers2
     dns_type: TXT
     reg_value: "\"me duele un pie\""
+    ttl: ""
+
 
   - name: registers3
     dns_type: MX
     reg_value: "19.19.19.19,correo.alguien.algo"
+    ttl: ""
 
   - name: registers4
     dns_type: CNAME
     reg_value: "lab2.ingdirect.es"
-  
+    ttl: ""
+
   - name: register5
     dns_type: NS
     reg_value: ns.server.com

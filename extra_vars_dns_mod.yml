@@ -70,17 +70,19 @@ registers_type:
     dns_type: A
     reg_value_orig: 192.168.1.3
     reg_value: 192.168.1.4
+    ttl: ""
 
   - name: registers2
     dns_type: TXT
     reg_value_orig: "me duele un pie"
     reg_value: "me duelen los pies"
+    ttl: ""
 
   - name: registers3
     dns_type: MX
     reg_value_orig: "19.19.19.19,correo.alguien.algo"
     reg_value: "mail.nuevo.mod.com,mail.mod.es"
-
+    ttl: ""
 
   - name: register4
     dns_type: NS
