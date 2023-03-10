@@ -47,4 +47,4 @@
       regexp: '.(S|s)erial\s'
       line: "                                {{ var_time_sec.stdout }} ; serial"
       state: 'present'
-    when: add_fqdn.changed
+    when: add_reg.changed
