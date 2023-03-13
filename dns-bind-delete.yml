@@ -79,3 +79,4 @@
           - "--------------DNS state----------------"
           - "DNS: {{ systemd_proc.status.SubState }}"
           - "---------------------------------------"
+      when: delete_fqdn.changed
