@@ -49,3 +49,19 @@
       line: "                                {{ var_time_sec.stdout }} ; serial"
       state: 'present'
     when: add_reg.changed
+
+  - name: Restart dns process to apply changes
+    become: true
+    systemd:
+      state: restarted
+      name: named
+    register: systemd_proc
+    when: add_reg.changed
+
+
+  - name: DNS State
+    debug:
+      msg: 
+        - "--------------DNS state----------------"
+        - "DNS: {{ systemd_proc.status.SubState }}"
+        - "---------------------------------------"

@@ -62,3 +62,20 @@
           - "--------------------------------------------------------------"
         
       when: delete_fqdn.changed
+
+
+    - name: Restart dns process to apply changes
+      become: true
+      systemd:
+        state: restarted
+        name: named
+      register: systemd_proc
+      when: delete_reg.changed
+
+
+    - name: DNS State
+      debug:
+        msg: 
+          - "--------------DNS state----------------"
+          - "DNS: {{ systemd_proc.status.SubState }}"
+          - "---------------------------------------"
