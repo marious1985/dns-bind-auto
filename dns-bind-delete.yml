@@ -30,6 +30,7 @@
       fetch:
         src: "{{ backup_file.dest }}"
         dest: "/backup/dns"
+        flat: yes
 
     - name: debug backup
       debug:
