@@ -26,6 +26,7 @@
       register: backup_file
 
     - name: backup current dns zone file to ansible host
+      become: yes
       fetch:
         src: "{{ backup_file.dest }}"
         dest: "/backup/dns"
