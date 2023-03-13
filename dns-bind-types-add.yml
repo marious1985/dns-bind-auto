@@ -35,7 +35,7 @@
     become: yes
     fetch:
       src: "{{ backup_file.dest }}"
-      dest: "/backup/dns/{{ inventory_hostname }}/{{ backup_file.dest }}"
+      dest: "/backup/dns/{{ inventory_hostname }}/{{ domain }}.host.{{ var_time_sec.stdout }}"
       flat: yes
 
   - name: Add Registers types
