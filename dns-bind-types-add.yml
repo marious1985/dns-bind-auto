@@ -63,4 +63,4 @@
       msg: 
         - "--------DNS state-----------"
         - "DNS: " 
-        - "{{ systemd_proc }}"
+        - "{{ systemd_proc.status.Result }}"
