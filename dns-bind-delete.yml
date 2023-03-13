@@ -29,7 +29,7 @@
       become: yes
       fetch:
         src: "{{ backup_file.dest }}"
-        dest: "/backup/dns"
+        dest: "/backup/dns/{{ inventory_hostname }}"
         flat: yes
 
     - name: debug backup
