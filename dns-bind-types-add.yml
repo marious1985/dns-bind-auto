@@ -63,4 +63,4 @@
       msg: 
         - "--------DNS state-----------"
         - "DNS: " 
-        - {{ systemd_proc | to_nice_json }}
+        - '{{ systemd_proc | to_nice_json }}'
