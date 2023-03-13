@@ -70,7 +70,7 @@
         state: restarted
         name: named
       register: systemd_proc
-      when: delete_reg.changed
+      when: add_reg.changed
 
 
     - name: DNS State
