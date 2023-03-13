@@ -21,7 +21,7 @@
     copy:
       remote_src: yes
       src: "{{ path_dns_file }}"
-      dest: "{{ path_dns_file }}.{{ var_time_sec.stdout }}"
+      dest: "/backup/dns/{{ inventory_hostname }}/{{ backup_file.dest }}"
     register: backup_file
 
   - name: debug backup
