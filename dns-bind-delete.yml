@@ -17,13 +17,18 @@
       shell: /usr/bin/date +%Y%m%M%S
       register: var_time_sec
 
-    - name: backup current dns zone file
+    - name: backup current dns zone file localy
       become: true
       copy:
         remote_src: yes
         src: "{{ path_dns_file }}"
         dest: "{{ path_dns_file }}.{{ var_time_sec.stdout }}"
       register: backup_file
+
+    - name: backup current dns zone file to ansible host
+      fetch:
+        src: "{{ backup_file.dest }}"
+        dest: "/backup/dns"
 
     - name: debug backup
       debug:
