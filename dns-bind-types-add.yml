@@ -37,7 +37,7 @@
     loop_control:
       loop_var: register
     register: add_fqdn
-      
+
   - name: "update serial bind for propagation"
     become: true
     lineinfile:
@@ -47,3 +47,19 @@
       line: "                                {{ var_time_sec.stdout }} ; serial"
       state: 'present'
     when: add_reg.changed
+  
+
+  - name: Restart dns process to apply changes
+    become: true
+    systemd:
+      state: restarted
+      name: named
+    register: systemd_proc
+    when: add_reg.changed
+
+
+  - name: DNS State
+    debug:
+      msg: 
+        - "--------DNS state-----------"
+        - "DNS: {{ systemd_proc.result }}"
