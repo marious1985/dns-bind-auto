@@ -62,4 +62,4 @@
     debug:
       msg: 
         - "--------DNS state-----------"
-        - "DNS: {{ systemd_proc.result }}"
+        - "DNS: {{ systemd_proc.Result }}"
