@@ -61,6 +61,6 @@
   - name: DNS State
     debug:
       msg: 
-        - "--------DNS state-----------"
-        - "DNS: " 
-        - "{{ systemd_proc.status.Result }}"
+        - "--------------DNS state----------------"
+        - "DNS: {{ systemd_proc.status.SubState }}"
+        - "---------------------------------------"
