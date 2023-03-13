@@ -31,6 +31,13 @@
       - " {{ backup_file.dest }} "
       - "------------------------------------------"
 
+  - name: backup current dns zone file to ansible host
+    become: yes
+    fetch:
+      src: "{{ backup_file.dest }}"
+      dest: "/backup/dns/{{ inventory_hostname }}"
+      flat: yes
+
   - name: Modify Registers types
     include_tasks: dns-bind-mod.yml
     loop: "{{ registers_type }}"
